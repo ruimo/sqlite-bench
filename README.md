@@ -1,6 +1,6 @@
 # SQLite benchmark
 
-A microbenchmark for SQLite database. Perform benchmark with the following basic operation. Using Postgres for comparison. A docker image for this benchmark is built on docker hub. You can run the same benchmark on your docker container. No need to install SQLite or Postgres at all.
+A microbenchmark for SQLite database. Perform benchmark with some basic operations. Using Postgres for comparison. A docker image for this benchmark is built on docker hub. You can run the same benchmark on your docker container easily. No need to install SQLite or Postgres at all.
 
 ## Bulk insert
 
@@ -23,6 +23,7 @@ Update 50000 records. Commit every 100 records.
 Command:
 ```
 docker run -t ruimo/sqlite-bench /updateBench.py [--wal]
+```
 
 Options:
 * --wal Use WAL(Write Ahead Log) for SQLite. It dramatically impoves insert/update/remove in SQLite.
