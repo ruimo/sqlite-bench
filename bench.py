@@ -1,8 +1,8 @@
 import sqlite3, time, psycopg2
 
-def withSqliteConnection(dbFileName, f, isolationLevel, useWal = False):
+def withSqliteConnection(dbFileName, f, isolationLevel, useWal = False, timeout = 60):
     try:
-        conn = sqlite3.connect(dbFileName)
+        conn = sqlite3.connect(dbFileName, timeout)
         conn.isolation_level = isolationLevel
         if useWal:
             print('Using WAL...')
@@ -50,6 +50,7 @@ def createTablePgsql(conn):
       )
     """ % primariKeySpec)
     createTableCommon(conn, primariKeySpec)
+    conn.commit()
 
 def createTableCommon(conn, primariKeySpec):
     cur = conn.cursor()
@@ -86,5 +87,6 @@ def createTableCommon(conn, primariKeySpec):
 
 def withStopwatch(title, f):
     start = time.time()
+    print('%s started...' % title)
     f()
     print('%s %.3f secs' % (title, time.time() - start))

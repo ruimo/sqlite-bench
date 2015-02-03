@@ -14,6 +14,7 @@ ADD selectBench.py /selectBench.py
 ADD selectBench2.py /selectBench2.py
 ADD selectBench3.py /selectBench3.py
 ADD selectBench4.py /selectBench4.py
+ADD concurrentInsertBench.py /concurrentInsertBench.py
 RUN chmod +x /runbench.sh
 
 ENTRYPOINT ["/runbench.sh"]

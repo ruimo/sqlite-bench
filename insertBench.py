@@ -47,7 +47,6 @@ def insertBenchPgsql(conn):
             conn, (lambda cur: None), lambda cur: conn.commit(), insertFunc
         )
 
-    bench.createTablePgsql(conn)
     bench.withStopwatch("insert departments with Postgres", performBench)
 
 def copyInsertBenchPgsql(conn):
@@ -61,13 +60,13 @@ def copyInsertBenchPgsql(conn):
             conn, (lambda cur: None), lambda cur: conn.commit(), insertFunc
         )
 
-    bench.createTablePgsql(conn)
     bench.withStopwatch("insert departments with Postgres using COPY", performBench)
 
 if __name__ == '__main__':
     args = docopt(__doc__)
     # 'isolationLevel = None' means auto commit.
     bench.withSqliteConnection("/tmp/test.db", insertBenchSqlite, isolationLevel = None, useWal = args["--wal"])
+    bench.withPgsqlConnection(bench.createTablePgsql)
     if args["--copy"]:
         bench.withPgsqlConnection(copyInsertBenchPgsql)
     else:

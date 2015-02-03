@@ -1,1 +1,1 @@
-docker run -t ruimo/sqlite-bench $*
+docker run --rm -t ruimo/sqlite-bench $*
