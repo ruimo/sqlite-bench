@@ -20,6 +20,7 @@ def withPgsqlConnection(f):
             database = "testDb", port = "5431", host = "/tmp"
         )
         f(conn)
+        conn.commit()
     finally:
         if conn:
             conn.close()
